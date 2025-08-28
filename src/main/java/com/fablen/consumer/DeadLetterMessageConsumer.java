@@ -1,7 +1,7 @@
-package com.ylanhds.consumer;
+package com.fablen.consumer;
 
-import com.ylanhds.rabbitmq.annotation.RabbitComponent;
-import com.ylanhds.rabbitmq.messaging.MessagingConstants;
+import com.fablen.rabbitmq.annotation.RabbitComponent;
+import com.fablen.rabbitmq.messaging.MessagingConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

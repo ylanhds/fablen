@@ -1,8 +1,8 @@
-package com.ylanhds.service;
+package com.fablen.service;
 
-import com.ylanhds.consumer.OrderMessage;
-import com.ylanhds.rabbitmq.client.RabbitMqClient;
-import com.ylanhds.rabbitmq.messaging.MessagingConstants;
+import com.fablen.consumer.OrderMessage;
+import com.fablen.rabbitmq.client.RabbitMqClient;
+import com.fablen.rabbitmq.messaging.MessagingConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.ylanhds.rabbitmq.messaging;
+package com.fablen.rabbitmq.messaging;
 
 /**
  * 消息队列相关常量定义
@@ -12,13 +12,13 @@ public interface MessagingConstants {
      * 默认延迟消息交换机名称
      * 用于处理需要延迟投递的消息
      */
-    String DEFAULT_DELAY_EXCHANGE = "youyu.delayed.exchange";
+    String DEFAULT_DELAY_EXCHANGE = "fablen.delayed.exchange";
 
     /**
      * 直连交换机名称
      * 用于处理普通的消息投递
      */
-    String DELAY_EXCHANGE = "youyu.direct.exchange";
+    String DELAY_EXCHANGE = "fablen.direct.exchange";
 
     // ==================== 队列相关常量 ====================
 

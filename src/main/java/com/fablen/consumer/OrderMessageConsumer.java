@@ -1,9 +1,9 @@
-package com.ylanhds.consumer;
+package com.fablen.consumer;
 
 import com.rabbitmq.client.Channel;
-import com.ylanhds.rabbitmq.annotation.RabbitComponent;
-import com.ylanhds.rabbitmq.core.GenericMessageHandler;
-import com.ylanhds.rabbitmq.messaging.MessagingConstants;
+import com.fablen.rabbitmq.annotation.RabbitComponent;
+import com.fablen.rabbitmq.core.GenericMessageHandler;
+import com.fablen.rabbitmq.messaging.MessagingConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;

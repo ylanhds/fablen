@@ -146,9 +146,9 @@ spring:
   rabbitmq:
     host: 192.168.0.13
     port: 5672
-    username: youyu-dev
-    password: youyu-dev
-    virtual-host: /youyu-cloud-dev
+    username: fablen-dev
+    password: fablen-dev
+    virtual-host: /fablen-cloud-dev
     listener:
       simple:
         prefetch: 1              # 每次获取1条消息

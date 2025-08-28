@@ -1,6 +1,6 @@
-package com.ylanhds.controller;
+package com.fablen.controller;
 
-import com.ylanhds.service.OrderService;
+import com.fablen.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

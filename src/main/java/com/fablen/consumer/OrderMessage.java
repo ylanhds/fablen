@@ -1,4 +1,4 @@
-package com.ylanhds.consumer;
+package com.fablen.consumer;
 
 import java.io.Serial;
 import java.io.Serializable;

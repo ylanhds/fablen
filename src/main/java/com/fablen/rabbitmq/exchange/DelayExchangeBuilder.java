@@ -1,6 +1,6 @@
-package com.ylanhds.rabbitmq.exchange;
+package com.fablen.rabbitmq.exchange;
 
-import com.ylanhds.rabbitmq.messaging.MessagingConstants;
+import com.fablen.rabbitmq.messaging.MessagingConstants;
 import org.springframework.amqp.core.CustomExchange;
 import org.springframework.stereotype.Component;
 

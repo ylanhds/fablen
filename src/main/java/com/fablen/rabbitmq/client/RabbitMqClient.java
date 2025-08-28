@@ -1,8 +1,8 @@
-package com.ylanhds.rabbitmq.client;
+package com.fablen.rabbitmq.client;
 
-import com.ylanhds.rabbitmq.annotation.RabbitComponent;
-import com.ylanhds.rabbitmq.exchange.DelayExchangeBuilder;
-import com.ylanhds.rabbitmq.messaging.MessagingConstants;
+import com.fablen.rabbitmq.annotation.RabbitComponent;
+import com.fablen.rabbitmq.exchange.DelayExchangeBuilder;
+import com.fablen.rabbitmq.messaging.MessagingConstants;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

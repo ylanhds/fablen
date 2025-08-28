@@ -1,4 +1,4 @@
-package com.ylanhds.rabbitmq.core;
+package com.fablen.rabbitmq.core;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

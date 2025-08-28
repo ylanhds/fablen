@@ -1,4 +1,4 @@
-package com.ylanhds.rabbitmq.core;
+package com.fablen.rabbitmq.core;
 
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;

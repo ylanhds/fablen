@@ -1,4 +1,4 @@
-package com.ylanhds.rabbitmq.annotation;
+package com.fablen.rabbitmq.annotation;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;

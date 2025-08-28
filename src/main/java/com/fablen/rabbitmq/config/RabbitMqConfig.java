@@ -1,4 +1,4 @@
-package com.ylanhds.rabbitmq.config;
+package com.fablen.rabbitmq.config;
 
 
 import lombok.extern.slf4j.Slf4j;
