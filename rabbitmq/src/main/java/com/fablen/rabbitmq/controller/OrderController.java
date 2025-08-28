@@ -1,6 +1,6 @@
-package com.fablen.controller;
+package com.fablen.rabbitmq.controller;
 
-import com.fablen.service.OrderService;
+import com.fablen.rabbitmq.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

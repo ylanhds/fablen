@@ -1,4 +1,4 @@
-package com.fablen.consumer;
+package com.fablen.rabbitmq.consumer;
 
 import com.fablen.rabbitmq.annotation.RabbitComponent;
 import com.fablen.rabbitmq.messaging.MessagingConstants;

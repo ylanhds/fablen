@@ -1,4 +1,4 @@
-package com.fablen.consumer;
+package com.fablen.rabbitmq.consumer;
 
 import java.io.Serial;
 import java.io.Serializable;

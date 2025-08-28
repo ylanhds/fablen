@@ -1,6 +1,6 @@
-package com.fablen.service;
+package com.fablen.rabbitmq.service;
 
-import com.fablen.consumer.OrderMessage;
+import com.fablen.rabbitmq.consumer.OrderMessage;
 import com.fablen.rabbitmq.client.RabbitMqClient;
 import com.fablen.rabbitmq.messaging.MessagingConstants;
 import lombok.extern.slf4j.Slf4j;

@@ -1,15 +1,13 @@
-package com.fablen;
+package com.fablen.rabbitmq;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootRabbitmqApplicationTests {
-
+class RabbitmqDemoApplicationTests {
 
     @Test
-    void testSendAndReceive() throws Exception {
-
+    void contextLoads() {
     }
 
 }

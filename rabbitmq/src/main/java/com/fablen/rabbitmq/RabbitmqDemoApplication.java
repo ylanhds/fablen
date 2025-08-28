@@ -1,13 +1,13 @@
-package com.fablen;
+package com.fablen.rabbitmq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootRabbitmqApplication {
+public class RabbitmqDemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootRabbitmqApplication.class, args);
+        SpringApplication.run(RabbitmqDemoApplication.class, args);
     }
 
 }
