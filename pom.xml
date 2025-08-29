@@ -15,10 +15,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>compress</module>
-        <module>interview</module>
-        <module>java-base/jvm</module>
-        <module>java-base/design-pattern</module>
+<!--        <module>compress</module>-->
+<!--        <module>validation-lib</module>-->
+<!--        <module>interview</module>-->
+<!--        <module>java-base/jvm</module>-->
+<!--        <module>java-base/design-pattern</module>-->
         <module>rabbitmq</module>
     </modules>
 
