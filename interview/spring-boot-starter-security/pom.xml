@@ -4,9 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.interview</groupId>
-        <artifactId>spring-cloud-interview</artifactId>
+        <groupId>com.fablen</groupId>
+        <artifactId>interview</artifactId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>spring-boot-starter-security</artifactId>
