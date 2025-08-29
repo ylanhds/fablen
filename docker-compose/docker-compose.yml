@@ -1,0 +1,129 @@
+services:
+  #  nacos-registry:
+  #    image: nacos/nacos-server:v2.1.0
+  #    container_name: nacos-registry
+  #    environment:
+  #      - "MODE=standalone"
+  #    ports:
+  #      - 8848:8848
+  #    networks:
+  #      - mynetwork
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./rabbitmq/data:/var/lib/rabbitmq
+    networks:
+      - mynetwork
+  mysql:
+    image: mysql:8.0.29
+    container_name: mysql
+    restart: always
+    command:
+      - mysqld
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password  # 关键参数
+    environment:
+      MYSQL_ROOT_PASSWORD: 5kY9BaCxEWbsaQ9Swr
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/data/db:/var/lib/mysql
+      - ./mysql/data/conf:/etc/mysql/conf.d
+      - ./mysql/log:/var/log/mysql
+    healthcheck: # 新增健康检查
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - mynetwork
+  mysql-exporter:
+    image: bitnami/mysqld-exporter:0.17.2
+    container_name: mysql-exporter
+    restart: unless-stopped
+    command:
+      - "--mysqld.username=youyu_test:S18SPQhil0U="
+      - "--mysqld.address=39.108.230.56:3306"
+    ports:
+      - 9104:9104
+    networks:
+      - mynetwork
+  prometheus:
+    image: prom/prometheus:v2.30.3
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/rules:/etc/prometheus/rules
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --web.enable-lifecycle
+    networks:
+      - mynetwork
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    depends_on:
+      - prometheus
+    networks:
+      - mynetwork
+    user: '0'
+  mongo:
+    image: bitnami/mongodb:8.0.12
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 5kY9BaCxEWbsaQ9Swr
+      MONGODB_ROOT_PASSWORD: 5kY9BaCxEWbsaQ9Swr
+      MONGODB_EXTRA_FLAGS: --auth
+    container_name: mongo
+    volumes:
+      - ./mongo/db:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - mynetwork
+  yapi:
+    image: jayfong/yapi:latest
+    container_name: yapi
+    restart: always
+    ports:
+      - 3100:3000
+    environment:
+      - YAPI_ADMIN_ACCOUNT=admin@admin.com
+      - YAPI_ADMIN_PASSWORD=admin123
+      - YAPI_CLOSE_REGISTER=true
+      - YAPI_DB_SERVERNAME=mongo
+      - YAPI_DB_PORT=27017
+      - YAPI_DB_DATABASE=yapi
+      - YAPI_DB_USER=root
+      - YAPI_DB_PASS=5kY9BaCxEWbsaQ9Swr
+      - YAPI_DB_AUTH_SOURCE=admin
+      - YAPI_MAIL_ENABLE=false
+      - YAPI_LDAP_ENABLE=false
+      - YAPI_OAUTH2_ENABLE=false
+    depends_on:
+      - mongo
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+    driver: bridge
