@@ -22,8 +22,6 @@
         <module>interview-gateway</module>
         <module>interview-auth</module>
         <module>interview-product</module>
-        <module>interview-eureka</module>
-        <module>interview-config</module>
         <module>spring-boot-starter-common</module>
         <module>spring-boot-starter-security</module>
     </modules>

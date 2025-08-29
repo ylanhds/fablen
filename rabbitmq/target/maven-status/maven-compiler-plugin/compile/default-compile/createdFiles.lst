@@ -1,0 +1,16 @@
+com\fablen\rabbitmq\config\RabbitMqConfig.class
+com\fablen\rabbitmq\consumer\OrderMessage.class
+com\fablen\rabbitmq\core\GenericMessageHandler.class
+com\fablen\rabbitmq\messaging\MessagingConstants.class
+com\fablen\rabbitmq\consumer\OrderMessageConsumer.class
+com\fablen\rabbitmq\client\RabbitMqClient.class
+com\fablen\rabbitmq\RabbitmqDemoApplication.class
+com\fablen\rabbitmq\core\GenericMessageHandler$MessageProcessor.class
+com\fablen\rabbitmq\service\RabbitMqService.class
+com\fablen\rabbitmq\controller\OrderController.class
+com\fablen\rabbitmq\consumer\OrderCheckMessageConsumer.class
+com\fablen\rabbitmq\exchange\DelayExchangeBuilder.class
+com\fablen\rabbitmq\consumer\DeadLetterMessageConsumer.class
+com\fablen\rabbitmq\service\OrderService.class
+com\fablen\rabbitmq\annotation\RabbitComponent.class
+com\fablen\rabbitmq\core\RabbitMqHealthIndicator.class
