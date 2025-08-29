@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>validation-lib</artifactId>
+    <version>1.0.0</version>
+    <name>通用字段校验模块</name>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- Java 8 以上自带 LocalDateTime 和 BigDecimal，无需额外依赖 -->
+        <!-- 如果需要使用 Lombok 简化 DTO，请自行添加 -->
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
