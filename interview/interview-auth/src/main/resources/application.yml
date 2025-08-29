@@ -1,0 +1,71 @@
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://interview-eureka:8761/eureka
+spring:
+  application:
+    name: interview-auth
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://interview-mysql:3306/auth_db?useSSL=false&serverTimezone=UTC
+    username: auth_user
+    password: Adm!nP@ss2024
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect  # 显式指定方言
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  security:
+    csrf:
+      enabled: false
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Ov23li74AbOLBmiOMlzn
+            client-secret: eafdac391321856dd77d209cb1eb56c140e8a74b
+            scope: read:user
+            redirect-uri: "http://localhost:8081/login/oauth2/code/github"
+        provider:
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            user-name-attribute: login
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+
+  ldap:
+    urls: ldap://interview-ldap:389
+    base: ou=people,dc=example,dc=com
+    # 管理员DN（如有）
+    username: cn=admin,dc=example,dc=com
+    # 管理员密码
+    password: Adm!nP@ss2024
+    # 用户搜索模式
+    userDnPattern: cn={0},ou=people
+    password-attribute: userPassword
+    # 根据实际加密方式调整
+    password-encoder: md5
+jwt:
+  secretKey: dJy5MH1u73qIRu74OuqKHTALBUGqVfyAoFLiCUnwl4Y=
+  expiration: 86400000 # 24小时
+server:
+  port: 9001
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    com.interview.auth: DEBUG
+    org.springframework.ldap: DEBUG
+    org.springframework.cloud.gateway: TRACE   # 网关请求调试
+    reactor.netty: DEBUG                       # Netty 请求详情
+    org.springframework.cloud.loadbalancer.core: TRACE
+    org.springframework.security.access: DEBUG

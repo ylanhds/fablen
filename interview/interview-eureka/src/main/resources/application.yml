@@ -1,0 +1,13 @@
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: true
+spring:
+  application:
+    name: interview-eureka
+server:
+  port: 8761
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
