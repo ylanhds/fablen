@@ -156,46 +156,6 @@ services:
     networks:
       - spring-cloud-network
 
-  cloud-eureka:
-    container_name: cloud-eureka
-    build:
-      context: ./cloud/eureka
-      dockerfile: Dockerfile
-    ports:
-      - "8761:8761"
-    environment:
-      SERVER_PORT: 8761
-      SPRING_CLOUD_DISCOVERY_CLIENT_SIMPLE_INSTANCES_INTERVIEW-EUREKA_0_HOST: cloud-eureka
-      SPRING_CLOUD_DISCOVERY_CLIENT_SIMPLE_INSTANCES_INTERVIEW-EUREKA_0_PORT: "8761"
-      SPRING_CLOUD_DISCOVERY_ENABLED: "true"
-      SPRING_CLOUD_EUREKA_USE_DNS: "true"
-      SPRING_CLOUD_EUREKA_INSTANCE_INFO_REPLICATOR_ENABLED: "true"
-    healthcheck:
-      test: [ "CMD", "sh", "-c", "wget -qO- http://cloud-eureka:8761/eureka/apps | grep -q '<applications>'" ]
-      interval: 10s
-      timeout: 5s
-      retries: 20
-    networks:
-      - spring-cloud-network
-
-#  cloud-config:
-#    container_name: cloud-config
-#    build:
-#      context: ./cloud/config
-#      Dockerfile: Dockerfile
-#    ports:
-#      - "8888:8888"
-#    depends_on:
-#      cloud-mysql:
-#        condition: service_healthy   # 只有当MySQL健康时才启动
-#    environment:
-#      SPRING_PROFILES_ACTIVE: dev
-#    networks:
-#      - spring-cloud-network
-
 networks:
   spring-cloud-network:
     driver: bridge
-#    ipam:
-#      config:
-#        - subnet: 172.22.0.0/16  # 仍然定义子网但不强制分配IP

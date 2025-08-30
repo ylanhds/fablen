@@ -1,6 +1,6 @@
 package com.cloud.auth.config;
 
-import com.cloud.security.filter.JwtAuthenticationFilter;
+import com.fablen.security.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

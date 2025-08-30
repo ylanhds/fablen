@@ -1,7 +1,7 @@
 package com.cloud.auth.config;
 
-import com.cloud.security.filter.JwtAuthenticationFilter;
-import com.cloud.security.jwt.JwtUtil;
+import com.fablen.security.filter.JwtAuthenticationFilter;
+import com.fablen.security.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

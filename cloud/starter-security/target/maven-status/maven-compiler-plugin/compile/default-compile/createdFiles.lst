@@ -1,2 +1,2 @@
-com\cloud\security\filter\JwtAuthenticationFilter.class
-com\cloud\security\jwt\JwtUtil.class
+com\fablen\security\filter\JwtAuthenticationFilter.class
+com\fablen\security\jwt\JwtUtil.class
