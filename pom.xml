@@ -15,12 +15,12 @@
     <packaging>pom</packaging>
 
     <modules>
-<!--        <module>compress</module>-->
-<!--        <module>validation-lib</module>-->
-<!--        <module>cloud</module>-->
-<!--        <module>java-base/jvm</module>-->
-<!--        <module>java-base/design-pattern</module>-->
-<!--        <module>rabbitmq</module>-->
+        <!--        <module>compress</module>-->
+        <!--        <module>validation-lib</module>-->
+                <module>cloud</module>
+        <!--        <module>java-base/jvm</module>-->
+        <!--        <module>java-base/design-pattern</module>-->
+        <!--        <module>rabbitmq</module>-->
     </modules>
 
     <properties>
@@ -29,8 +29,10 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.38</lombok.version>
-        <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <spring-cloud.version>2025.1.0-M1</spring-cloud.version>
+        <spring-boot.version>4.0.0-M2</spring-boot.version>
         <spring-cloud-alibaba.version>2023.0.3.3</spring-cloud-alibaba.version>
+        <dubbo.version>3.3.0</dubbo.version>
     </properties>
 
     <!-- 父模块直接依赖（所有子模块都会继承） -->
@@ -47,6 +49,14 @@
     <!-- 依赖版本管理（仅定义版本，不实际引入依赖） -->
     <dependencyManagement>
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -58,6 +68,13 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-bom</artifactId>
+                <version>${dubbo.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

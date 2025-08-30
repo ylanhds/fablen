@@ -1,3 +1,4 @@
 com\fablen\gateway\controller\HomeController.class
 com\fablen\gateway\config\GatewaySecurityConfig.class
 com\fablen\gateway\GatewayApplication.class
+com\fablen\gateway\GlobalExceptionHandler.class

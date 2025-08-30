@@ -1,4 +1,4 @@
-package com.cloud.auth.service.impl;
+package com.interview.auth.service.impl;
 
 import com.cloud.auth.client.GithubApiClient;
 import com.cloud.auth.dto.LoginRequest;
@@ -76,7 +76,7 @@ public class GithubAuthService implements AbstractAuthService {
             );
         } catch (WebClientResponseException e) {
             logger.error("GitHub API请求失败 - 状态码: {}, 响应: {}",
-                    e.getRawStatusCode(), e.getResponseBodyAsString());
+                    e.getStatusCode(), e.getResponseBodyAsString());
             throw new BadCredentialsException("GitHub服务不可用", e);
         } catch (Exception e) {
             logger.error("GitHub认证过程异常", e);

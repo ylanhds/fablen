@@ -12,9 +12,9 @@ com\cloud\auth\client\GithubApiClient.class
 com\cloud\auth\service\AbstractAuthService.class
 com\cloud\auth\service\impl\LdapAuthService.class
 com\cloud\auth\config\SecurityConfig.class
+com\interview\auth\service\impl\GithubAuthService.class
 com\cloud\auth\config\AutoConfiguration$JpaConfig.class
 com\cloud\auth\controller\AuthController.class
 com\cloud\auth\config\AutoConfiguration.class
 com\cloud\auth\client\GithubUser.class
 com\cloud\auth\entity\Role$RoleBuilder.class
-com\cloud\auth\service\impl\GithubAuthService.class
