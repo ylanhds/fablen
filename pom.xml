@@ -17,10 +17,10 @@
     <modules>
         <!--        <module>compress</module>-->
         <!--        <module>validation-lib</module>-->
-                <module>cloud</module>
-        <!--        <module>java-base/jvm</module>-->
-        <!--        <module>java-base/design-pattern</module>-->
+<!--        <module>java-base/jvm</module>-->
+<!--        <module>java-base/design-pattern</module>-->
         <!--        <module>rabbitmq</module>-->
+        <module>cloud</module>
     </modules>
 
     <properties>

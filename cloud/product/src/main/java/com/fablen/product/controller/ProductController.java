@@ -2,7 +2,7 @@ package com.fablen.product.controller;
 
 import com.fablen.common.Result;
 import com.fablen.product.entity.Product;
-import com.fablen.product.service.ProductService;
+import com.fablen.product.service.DubboProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
+    private DubboProductService dubboProductService;
 
     @GetMapping
     public Result<Page<Product>> getAllProducts(
@@ -24,27 +24,27 @@ public class ProductController {
             @RequestParam(required = false) String name) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage = (name == null || name.isEmpty()) ?
-                productService.getAllProductsPageable(pageable) :
-                productService.searchProducts(name, pageable);
+                dubboProductService.getAllProductsPageable(pageable) :
+                dubboProductService.searchProducts(name, pageable);
         return Result.success(productPage);
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('ROLE_EDITOR') or hasAuthority('ROLE_PRODUCT_ADMIN')")
     public Result<Product> addProduct(@RequestBody Product product) {
-        return Result.success(productService.addProduct(product));
+        return Result.success(dubboProductService.addProduct(product));
     }
 
     @PutMapping("/edit/{id}")
     @PreAuthorize("hasAuthority('ROLE_EDITOR') or hasAuthority('ROLE_PRODUCT_ADMIN')")
     public Result<Product> editProduct(@PathVariable Long id, @RequestBody Product productDetails) {
-        return Result.success(productService.editProduct(id, productDetails));
+        return Result.success(dubboProductService.editProduct(id, productDetails));
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('ROLE_PRODUCT_ADMIN')")
     public Result<Void> deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+        dubboProductService.deleteProduct(id);
         return Result.success();
     }
 }

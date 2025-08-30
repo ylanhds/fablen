@@ -19,6 +19,8 @@
     <name>cloud</name>
 
     <modules>
+        <module>api</module>
+        <module>web</module>
         <module>starter-common</module>
         <module>starter-security</module>
         <module>gateway</module>
