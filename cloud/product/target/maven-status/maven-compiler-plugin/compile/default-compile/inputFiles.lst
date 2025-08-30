@@ -2,7 +2,7 @@ D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\config\We
 D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\controller\HealthController.java
 D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\entity\Product.java
 D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\config\AutoConfiguration.java
-D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\service\ProductService.java
 D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\controller\ProductController.java
+D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\service\DubboProductService.java
 D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\repository\ProductRepository.java
 D:\projet\GitHub\fablen\cloud\product\src\main\java\com\fablen\product\ProducerApplication.java

@@ -2,7 +2,7 @@ package com.fablen.product.service;
 
 import com.fablen.product.entity.Product;
 import com.fablen.product.repository.ProductRepository;
-import main.com.fablen.api.product.ProductService;
+import com.fablen.api.product.ProductService;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

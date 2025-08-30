@@ -19,10 +19,10 @@
     <name>cloud</name>
 
     <modules>
-        <module>api</module>
-        <module>web</module>
         <module>starter-common</module>
         <module>starter-security</module>
+        <module>web</module>
+        <module>api</module>
         <module>gateway</module>
         <module>auth</module>
         <module>product</module>

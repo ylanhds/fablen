@@ -1,4 +1,4 @@
-package main.com.fablen.api.product;
+package com.fablen.api.product;
 
 public interface ProductService {
     String sayHello(String name);
