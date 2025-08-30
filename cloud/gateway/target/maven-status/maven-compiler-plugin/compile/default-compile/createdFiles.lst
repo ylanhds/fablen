@@ -1,0 +1,3 @@
+com\cloud\gateway\controller\HomeController.class
+com\cloud\gateway\GatewayApplication.class
+com\cloud\gateway\config\GatewaySecurityConfig.class

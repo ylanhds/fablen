@@ -1,0 +1,44 @@
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://cloud-eureka:8761/eureka
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://127.0.0.1"
+            allowedMethods: GET, POST, PUT, DELETE, OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+      ## 启用服务发现路由支持
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: cloud-auth
+          uri: lb://cloud-auth
+          predicates:
+            - Path=/auth/api/**
+          filters:
+            - RewritePath=/auth/(?<segment>.*), /$\{segment}
+
+        - id: cloud-product
+          uri: lb://cloud-product
+          predicates:
+            - Path=/product/api/products/**
+          filters:
+            - RewritePath=/product/(?<segment>.*), /$\{segment}
+logging:
+  level:
+    root: INFO
+    com.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway: TRACE
+server:
+  port: 7573

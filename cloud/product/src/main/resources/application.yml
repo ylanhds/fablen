@@ -1,0 +1,39 @@
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://cloud-eureka:8761/eureka
+spring:
+  application:
+    name: cloud-product
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://cloud-mysql:3306/product_db?useSSL=false&serverTimezone=UTC
+    username: product_user
+    password: Adm!nP@ss2024
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect  # 显式指定方言
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+jwt:
+  secretKey: dJy5MH1u73qIRu74OuqKHTALBUGqVfyAoFLiCUnwl4Y=
+  expiration: 86400000 # 24小时
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    com.cloud.product: DEBUG # 项目包的日志
+    org.springframework.ldap: DEBUG
+    org.springframework.cloud.loadbalancer.core: TRACE
+    org.springframework.security.access: DEBUG
+server:
+  port: 9002
