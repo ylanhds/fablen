@@ -1,13 +1,28 @@
 services:
-  #  nacos-registry:
-  #    image: nacos/nacos-server:v2.1.0
-  #    container_name: nacos-registry
-  #    environment:
-  #      - "MODE=standalone"
-  #    ports:
-  #      - 8848:8848
-  #    networks:
-  #      - mynetwork
+  nacos-registry:
+    image: nacos/nacos-server:v3.0.3
+    container_name: nacos-registry
+    environment:
+      - "MODE=standalone"
+      # 认证配置
+      - "NACOS_AUTH_ENABLE=true"
+      - "NACOS_AUTH_USERNAME=nacos"
+      - "NACOS_AUTH_PASSWORD=YourSecurePassword123"
+      # 必需的身份验证配置
+      - "NACOS_AUTH_IDENTITY_KEY=nacos"
+      - "NACOS_AUTH_IDENTITY_VALUE=nacos"
+      # Token 配置（可选）
+      - "NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789"
+    ports:
+      - "8848:8848"  # 客户端通信端口
+      - "8080:8080"  # 管理控制台端口
+      - "9848:9848"  # gRPC 控制面端口
+      - "9849:9849"  # gRPC 数据面端口
+    volumes:
+      - ./nacos/logs:/home/nacos/logs
+      - ./nacos/data:/home/nacos/data
+    networks:
+      - mynetwork
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq

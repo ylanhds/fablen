@@ -1,54 +1,63 @@
 package com.fablen.product.service;
 
-import com.fablen.product.entity.Product;
-import com.fablen.product.repository.ProductRepository;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.fablen.api.product.ProductService;
+import com.fablen.product.entity.Product;
+import com.fablen.product.mapper.ProductMapper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 @DubboService(version = "1.0.0", group = "product-service")
+@Service
 public class DubboProductService implements ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductMapper productMapper;
 
-    public Page<Product> getAllProductsPageable(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public Page<Product> getAllProductsPageable(Page<Product> page) {
+        return productMapper.selectPage(page, null);
     }
 
-    public Page<Product> searchProducts(String name, Pageable pageable) {
-        return productRepository.findByNameContainingIgnoreCase(name, pageable);
-
+    public Page<Product> searchProducts(String name, Page<Product> page) {
+        QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("name", name);
+        return productMapper.selectPage(page, queryWrapper);
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productMapper.selectList(null);
     }
 
     public Product addProduct(Product product) {
-        return productRepository.save(product);
+        productMapper.insert(product);
+        return product;
     }
 
     public Product editProduct(Long id, Product productDetails) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+        Product product = productMapper.selectById(id);
+        if (product == null) {
+            throw new RuntimeException("Product not found");
+        }
         product.setName(productDetails.getName());
-        return productRepository.save(product);
+        productMapper.updateById(product);
+        return product;
     }
 
     public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
-        productRepository.delete(product);
+        Product product = productMapper.selectById(id);
+        if (product == null) {
+            throw new RuntimeException("Product not found");
+        }
+        productMapper.deleteById(id);
     }
 
     @Override
     public String sayHello(String name) {
-        return "Hello"+name;
+        return "Hello " + name;
     }
 }

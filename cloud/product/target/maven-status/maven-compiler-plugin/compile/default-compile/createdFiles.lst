@@ -2,8 +2,7 @@ com\fablen\product\entity\Product.class
 com\fablen\product\service\DubboProductService.class
 com\fablen\product\controller\ProductController.class
 com\fablen\product\config\WebSecurityConfig.class
-com\fablen\product\entity\Product$ProductBuilder.class
+com\fablen\product\mapper\ProductMapper.class
 com\fablen\product\config\AutoConfiguration.class
 com\fablen\product\ProducerApplication.class
 com\fablen\product\controller\HealthController.class
-com\fablen\product\repository\ProductRepository.class

@@ -18,20 +18,6 @@
     <packaging>pom</packaging>
     <name>cloud</name>
 
-    <modules>
-        <module>starter-common</module>
-        <module>starter-security</module>
-        <module>web</module>
-        <module>api</module>
-        <module>gateway</module>
-        <module>auth</module>
-        <module>product</module>
-    </modules>
-
-    <properties>
-        <spring.version>7.0.M8</spring.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>jakarta.persistence</groupId>
@@ -73,22 +59,7 @@
         <!-- 显式指定安全版本的 Netty 依赖 -->
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-common</artifactId>
-            <version>4.1.118.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-handler</artifactId>
-            <version>4.1.118.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-codec</artifactId>
-            <version>4.1.118.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-transport</artifactId>
+            <artifactId>netty-all</artifactId>
             <version>4.1.118.Final</version>
         </dependency>
         <dependency>
@@ -97,6 +68,16 @@
             <version>4.28.2</version>
         </dependency>
     </dependencies>
+
+    <modules>
+        <module>starter-common</module>
+        <module>starter-security</module>
+        <module>web</module>
+        <module>api</module>
+        <module>gateway</module>
+        <module>auth</module>
+        <module>product</module>
+    </modules>
     <build>
         <plugins>
             <plugin>

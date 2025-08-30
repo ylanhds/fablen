@@ -1,12 +1,16 @@
 package com.fablen.product.config;
 
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.fablen.security.filter.JwtAuthenticationFilter;
 import com.fablen.security.jwt.JwtUtil;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.jpa.JpaVendorAdapter;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
 
@@ -19,39 +23,27 @@ import javax.sql.DataSource;
  *
  * @author zhangbaosheng
  */
+@MapperScan("com.fablen.product.mapper")
 @Configuration
 public class AutoConfiguration {
+    @Bean
+    public SqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setMapperLocations(
+                new PathMatchingResourcePatternResolver().getResources("classpath*:/mapper/**/*.xml"));
+        return sessionFactory;
+    }
 
     /**
-     * 配置JPA实体管理器工厂
-     *
-     * @param dataSource       数据源(自动注入)
-     * @param jpaVendorAdapter JPA供应商适配器(自动注入)
-     * @return 配置完成的实体管理器工厂Bean
+     * 添加分页插件
      */
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            DataSource dataSource,
-            JpaVendorAdapter jpaVendorAdapter) {
-
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-
-        // 设置数据源(必须)
-        em.setDataSource(dataSource);
-
-        // 设置实体类扫描包路径(重要)
-        em.setPackagesToScan("com.cloud.product.entity");
-
-        // 设置JPA实现供应商(如Hibernate)
-        em.setJpaVendorAdapter(jpaVendorAdapter);
-
-        // 设置持久化单元名称(可选)
-        em.setPersistenceUnitName("default");
-
-        // 显式指定EntityManagerFactory接口(兼容Jakarta EE 9+)
-        em.setEntityManagerFactoryInterface(jakarta.persistence.EntityManagerFactory.class);
-
-        return em;
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL)); // 如果配置多个插件, 切记分页最后添加
+        // 如果有多数据源可以不配具体类型, 否则都建议配上具体的 DbType
+        return interceptor;
     }
 
     @Bean

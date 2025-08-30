@@ -4,7 +4,7 @@
 usage() {
   echo "Usage: ./deploy.sh [base|build|version|modules|stop|clean|logs|purge]"
   echo "  purge   - 清理无用Docker镜像"
-  echo "  base     - 启动基础设施（MySQL/LDAP/Eureka）"
+  echo "  base     - 启动基础设施（MySQL/LDAP/Nacos）"
   echo "  build    - 强制重建镜像（带版本控制）"
   echo "  version  - 查看当前运行版本"
   echo "  modules  - 启动业务微服务"
@@ -43,20 +43,20 @@ base() {
     cloud-mysql \
     cloud-ldap \
     cloud-ldap-admin \
-    cloud-eureka; then
+    cloud-nacos; then
     echo "❌ 基础设施启动失败"
-    get_service_logs cloud-eureka
+    get_service_logs cloud-nacos
     exit 1
   fi
 
-  echo "⏳ 等待基础设施初始化(5秒)..."
-  sleep 5
+  echo "⏳ 等待基础设施初始化(10秒)..."
+  sleep 10
 
-  # 验证Eureka是否真正启动
-  if ! docker-compose exec -T cloud-eureka \
-    curl -sfS http://cloud-eureka:8761/actuator/health | grep -q 'UP'; then
-    echo "❌ Eureka未正常启动"
-    get_service_logs cloud-eureka
+  # 验证Nacos是否真正启动
+  if ! docker-compose exec -T cloud-nacos \
+    curl -sfS http://cloud-nacos:8848/nacos/v1/console/health/liveness | grep -q 'UP'; then
+    echo "❌ Nacos未正常启动"
+    get_service_logs cloud-nacos
     exit 1
   fi
 
@@ -69,7 +69,7 @@ build() {
 
   # 强制清理旧镜像（关键修改）
   echo "🧹 清理旧镜像..."
-  docker-compose rm -fvs cloud-eureka cloud-auth cloud-gateway cloud-product 2>/dev/null
+  docker-compose rm -fvs cloud-auth cloud-gateway cloud-product 2>/dev/null
   docker rmi $(docker images | grep 'cloud-' | awk '{print $3}') 2>/dev/null || true
 
   # 带版本号的构建（示例使用git commit作为版本）
@@ -77,7 +77,6 @@ build() {
   echo "🏗️ 构建微服务镜像 (版本: $VERSION)..."
 
   services=(
-    cloud-eureka
     cloud-auth
     cloud-product
     cloud-gateway
@@ -111,41 +110,40 @@ version() {
 modules() {
   check_dependencies
 
-  # 确保Eureka已运行
-  if ! docker-compose ps | grep -q "cloud-eureka"; then
+  # 确保Nacos已运行
+  if ! docker-compose ps | grep -q "cloud-nacos"; then
     base
   fi
 
-  echo "⏳ 检查Eureka状态..."
-  local max_retries=30 interval=3 retry_count=0
+  echo "⏳ 检查Nacos状态..."
+  local max_retries=40 interval=3 retry_count=0
 
-  # 使用wget进行健康检查（已验证可用）
-  while ! docker-compose exec -T cloud-eureka \
-    wget -qO- http://cloud-eureka:8761/actuator/health | grep -q '"status":"UP"'; do
+  # 使用curl进行健康检查
+  while ! docker-compose exec -T cloud-nacos \
+    curl -sfS http://cloud-nacos:8848/nacos/v1/console/health/liveness | grep -q 'UP'; do
     ((retry_count++))
 
     # 每3次重试显示最新日志
     if (( retry_count % 3 == 0 )); then
       echo "📜 最近日志："
-      docker-compose logs --tail=3 cloud-eureka | awk '{print "    | " $0}'
+      docker-compose logs --tail=3 cloud-nacos | awk '{print "    | " $0}'
     fi
 
     if [ $retry_count -ge $max_retries ]; then
-      echo "❌ Eureka健康检查失败"
+      echo "❌ Nacos健康检查失败"
       echo "可能原因："
       echo "1. 应用启动超时 => 增加等待时间：修改脚本中的max_retries和interval参数"
       echo "2. 资源不足 => 检查：docker stats"
-      echo "3. 端口冲突 => 检查：netstat -tulnp | grep 8761"
-      get_service_logs cloud-eureka
+      echo "3. 端口冲突 => 检查：netstat -tulnp | grep 8848"
+      get_service_logs cloud-nacos
       exit 1
     fi
     echo "🔄 等待中... ($retry_count/$max_retries)"
     sleep $interval
   done
 
-  echo "✅ Eureka已就绪，状态："
-  docker-compose exec -T cloud-eureka wget -qO- http://cloud-eureka:8761/actuator/health | jq . 2>/dev/null || \
-    docker-compose exec -T cloud-eureka wget -qO- http://cloud-eureka:8761/actuator/health
+  echo "✅ Nacos已就绪，状态："
+  docker-compose exec -T cloud-nacos curl -sfS http://cloud-nacos:8848/nacos/v1/console/health/liveness
 
   echo "🚀 启动业务微服务..."
   local services=(
@@ -172,7 +170,6 @@ stop() {
   check_dependencies
   echo "🛑 停止微服务..."
   if ! docker-compose stop \
-    cloud-eureka \
     cloud-auth \
     cloud-gateway \
     cloud-product; then
@@ -187,7 +184,6 @@ clean() {
   echo "🧹 清理微服务容器..."
 
   if ! docker-compose rm -fvs \
-    cloud-eureka \
     cloud-auth \
     cloud-gateway \
     cloud-product; then
@@ -196,7 +192,7 @@ clean() {
   fi
 
   echo "✅ 已清理微服务，保留以下基础设施:"
-  docker-compose ps -a | grep -E 'cloud-mysql|cloud-ldap'
+  docker-compose ps -a | grep -E 'cloud-mysql|cloud-ldap|cloud-nacos'
 }
 
 # 查看日志
@@ -204,7 +200,6 @@ logs() {
   check_dependencies
   echo "📜 微服务日志:"
   docker-compose logs -f \
-    cloud-eureka \
     cloud-auth \
     cloud-gateway \
     cloud-product

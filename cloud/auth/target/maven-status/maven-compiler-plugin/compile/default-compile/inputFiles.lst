@@ -3,13 +3,13 @@ D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\config\AutoConf
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\service\impl\GithubAuthService.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\client\GithubApiClient.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\util\AuthServiceFactory.java
+D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\mapper\UserMapper.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\dto\LoginRequest.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\service\impl\LdapAuthService.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\entity\Role.java
-D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\repository\UserRepository.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\service\impl\DatabaseAuthService.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\AuthApplication.java
-D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\repository\RoleRepository.java
+D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\mapper\RoleMapper.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\controller\AuthController.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\entity\UserAccount.java
 D:\projet\GitHub\fablen\cloud\auth\src\main\java\com\fablen\auth\service\AbstractAuthService.java

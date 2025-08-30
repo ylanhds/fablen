@@ -29,8 +29,9 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.38</lombok.version>
-        <spring-cloud.version>2025.1.0-M1</spring-cloud.version>
-        <spring-boot.version>4.0.0-M2</spring-boot.version>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
+        <spring-boot.version>3.5.5</spring-boot.version>
+        <spring.version>6.2.10</spring.version>
         <spring-cloud-alibaba.version>2023.0.3.3</spring-cloud-alibaba.version>
         <dubbo.version>3.3.0</dubbo.version>
     </properties>
@@ -49,6 +50,14 @@
     <!-- 依赖版本管理（仅定义版本，不实际引入依赖） -->
     <dependencyManagement>
         <dependencies>
+            <!-- 强制统一 Spring 版本 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -78,6 +87,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+                <dependency>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-bom</artifactId>
+                    <version>4.1.118.Final</version>
+                    <type>pom</type>
+                    <scope>import</scope>
+                </dependency>
         </dependencies>
     </dependencyManagement>
 

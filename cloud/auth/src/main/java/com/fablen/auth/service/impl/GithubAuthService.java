@@ -3,9 +3,9 @@ package com.fablen.auth.service.impl;
 import com.fablen.auth.client.GithubApiClient;
 import com.fablen.auth.dto.LoginRequest;
 import com.fablen.auth.service.AbstractAuthService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,12 +21,11 @@ import java.util.List;
  *
  * @author zhangbaosheng
  */
-@RequiredArgsConstructor
 @Service("githubAuthService")
 public class GithubAuthService implements AbstractAuthService {
     private static final Logger logger = LoggerFactory.getLogger(GithubAuthService.class);
-
-    private final GithubApiClient githubApiClient;
+    @Autowired
+    private  GithubApiClient githubApiClient;
 
     @Override
     public UserDetails authenticate(LoginRequest request) {
@@ -63,7 +62,7 @@ public class GithubAuthService implements AbstractAuthService {
 //
 //            return new org.springframework.security.core.userdetails.User(
 //                    githubUser.getLogin(),
-                    // 密码留空，因为使用OAuth2
+            // 密码留空，因为使用OAuth2
 //                    "",
 //                    List.of(new SimpleGrantedAuthority("ROLE_USER"))
 //            );

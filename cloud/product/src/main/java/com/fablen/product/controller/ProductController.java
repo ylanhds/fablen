@@ -4,11 +4,10 @@ import com.fablen.common.Result;
 import com.fablen.product.entity.Product;
 import com.fablen.product.service.DubboProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
@@ -18,15 +17,20 @@ public class ProductController {
     private DubboProductService dubboProductService;
 
     @GetMapping
-    public Result<Page<Product>> getAllProducts(
-            @RequestParam(defaultValue = "0") int page,
+    public Result<com.baomidou.mybatisplus.extension.plugins.pagination.Page<Product>> getAllProducts(
+            @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(required = false) String name) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productPage = (name == null || name.isEmpty()) ?
-                dubboProductService.getAllProductsPageable(pageable) :
-                dubboProductService.searchProducts(name, pageable);
-        return Result.success(productPage);
+
+        com.baomidou.mybatisplus.extension.plugins.pagination.Page<Product> productPage =
+            new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(page, size);
+
+        com.baomidou.mybatisplus.extension.plugins.pagination.Page<Product> resultPage =
+            (name == null || name.isEmpty()) ?
+                dubboProductService.getAllProductsPageable(productPage) :
+                dubboProductService.searchProducts(name, productPage);
+
+        return Result.success(resultPage);
     }
 
     @PostMapping("/add")
@@ -46,5 +50,10 @@ public class ProductController {
     public Result<Void> deleteProduct(@PathVariable Long id) {
         dubboProductService.deleteProduct(id);
         return Result.success();
+    }
+
+    @GetMapping("/all")
+    public Result<List<Product>> getAllProducts() {
+        return Result.success(dubboProductService.getAllProducts());
     }
 }

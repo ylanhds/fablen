@@ -1,36 +1,61 @@
 spring:
+  application:
+    name: cloud-gateway
+  main:
+    allow-bean-definition-overriding: true
   cloud:
-    gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "http://127.0.0.1"
-            allowedMethods: GET, POST, PUT, DELETE, OPTIONS
-            allowedHeaders: "*"
-            allowCredentials: true
-
+    nacos:
       discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-
-      routes:
-        - id: cloud-auth
-          uri: lb://cloud-auth
-          predicates:
-            - Path=/auth/api/**
-          filters:
-            - RewritePath=/auth/(?<segment>.*), /$\{segment}
-
-        - id: cloud-product
-          uri: lb://cloud-product
-          predicates:
-            - Path=/product/api/products/**
-          filters:
-            - RewritePath=/product/(?<segment>.*), /$\{segment}
-
+        server-addr: ${NACOS_SERVER_ADDR:192.168.0.135:8848}
+        namespace: ${NACOS_NAMESPACE:df35fbb2-86a5-492c-bd80-cf2e8a51e53b}
+        group: DEFAULT_GROUP
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:YourSecurePassword123}
+      config:
+        server-addr: ${NACOS_SERVER_ADDR:192.168.0.135:8848}
+        namespace: ${NACOS_NAMESPACE:df35fbb2-86a5-492c-bd80-cf2e8a51e53b}
+        group: DEFAULT_GROUP
+        file-extension: yaml
+        username: ${NACOS_USERNAME:nacos}
+        password: ${NACOS_PASSWORD:YourSecurePassword123}
+        refresh-enabled: true
+        # 添加共享配置
+        shared-configs:
+          - data-id: dubbo-common.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+    gateway:
+      server:
+        webflux:
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins: "http://127.0.0.1"
+                allowedMethods: GET, POST, PUT, DELETE, OPTIONS
+                allowedHeaders: "*"
+                allowCredentials: true
+          routes:
+            - id: cloud-auth
+              uri: lb://cloud-auth
+              predicates:
+                - Path=/auth/api/**
+              filters:
+                - RewritePath=/auth/(?<segment>.*), /$\{segment}
+            - id: cloud-product
+              uri: lb://cloud-product
+              predicates:
+                - Path=/product/api/products/**
+              filters:
+                - RewritePath=/product/(?<segment>.*), /$\{segment}
 server:
   port: 7573
+
+
+dubbo:
+  protocol:
+    port: 20882  # 不同端口避免冲突
+
+
 
 logging:
   level:

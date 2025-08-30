@@ -1,24 +1,60 @@
 package com.fablen.product.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.baomidou.mybatisplus.annotation.*;
+import java.io.Serializable;
 
-import java.math.BigDecimal;
+@TableName("product")  // 指定数据库表名
+public class Product implements Serializable {
 
-@Entity
-@Table(name = "products")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
+    @TableId(value = "id", type = IdType.AUTO)  // 主键注解
     private Long id;
-    @Column(nullable = false)
+
+    @TableField("name")  // 字段映射
     private String name;
-    @Column(nullable = false)
-    private BigDecimal price;
+
+    // 逻辑删除字段（可选）
+    @TableLogic
+    @TableField("deleted")
+    private Integer deleted;
+
+    // 乐观锁版本字段（可选）
+    @Version
+    @TableField("version")
+    private Integer version;
+
+    // 构造函数
+    public Product() {}
+
+    // Getter 和 Setter 方法
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

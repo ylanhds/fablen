@@ -2,7 +2,7 @@ package com.fablen.auth.service.impl;
 
 import com.fablen.auth.dto.LoginRequest;
 import com.fablen.auth.entity.Role;
-import com.fablen.auth.repository.UserRepository;
+import com.fablen.auth.mapper.UserMapper;
 import com.fablen.auth.service.AbstractAuthService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,13 +27,13 @@ import java.util.stream.Collectors;
 @Service("databaseAuthService")
 public class DatabaseAuthService implements AbstractAuthService {
     private static final Logger logger = LoggerFactory.getLogger(DatabaseAuthService.class);
-    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     public UserDetails authenticate(LoginRequest request) {
 
         logger.debug("尝试加载用户: {}", request.getUsername());
-        return userRepository.findByUsername(request.getUsername())
+        return userMapper.findByUsername(request.getUsername())
                 .map(user -> {
                     logger.debug("找到用户: {}, 启用状态: {}", user.getUsername(), user.isEnabled());
                     return new User(
